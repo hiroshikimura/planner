@@ -1,0 +1,65 @@
+version: '3.5'
+services:
+  db:
+    image: postgis/postgis:12-master
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: opt_planner_development
+      POSTGRES_USER: opt_planner_development
+      POSTGRES_DB: opt_planner_development
+    volumes:
+      - './docker/pg/conf:/docker-entrypoint-initdb.d'
+      - 'pg_data:/var/lib/postgresql/data'
+    ports:
+      - '5432:5432'
+    networks:
+      - osanpo_net
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=root@dekaihiroshi.net
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - '10081:80'
+    volumes:
+      - 'pgadmin_data:/var/lib/pgadmin'
+    networks:
+      - osanpo_net
+  redis:
+    image: redis:latest
+    restart: always
+    volumes:
+      - "./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf"
+      - "./docker/redis/data:/data"
+    ports:
+      - "6379:6379"
+    networks:
+      - osanpo_net
+
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "38081:8081"
+    networks:
+      - osanpo_net
+
+networks:
+  opt_planner_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.40.0.0/16
+volumes:
+  pg_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+# zookeeper_data:
+#   driver: local
+# kafka_data:
+#   driver: local
