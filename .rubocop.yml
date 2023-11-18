@@ -1,0 +1,12 @@
+AllCops:
+  NewCops: enable
+Documentation:
+  Enabled: false
+Metrics/BlockLength:
+  Max: 40
+Layout/LineLength:
+  Max: 200
+Metrics/MethodLength:
+  Max: 40
+Metrics/AbcSize:
+  Max: 40

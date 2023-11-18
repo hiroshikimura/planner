@@ -80,6 +80,7 @@ GEM
     after_commit_everywhere (1.3.1)
       activerecord (>= 4.2)
       activesupport
+    ast (2.4.2)
     base64 (0.2.0)
     bcrypt (3.1.19)
     bigdecimal (3.1.4)
@@ -118,6 +119,8 @@ GEM
     irb (1.9.0)
       rdoc
       reline (>= 0.3.8)
+    json (2.6.3)
+    language_server-protocol (3.17.0.3)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -143,6 +146,11 @@ GEM
     nio4r (2.6.0)
     nokogiri (1.15.4-x86_64-darwin)
       racc (~> 1.4)
+    parallel (1.23.0)
+    parser (3.2.2.4)
+      ast (~> 2.4.1)
+      racc
+    pg (1.5.4)
     psych (5.1.1.1)
       stringio
     public_suffix (5.0.3)
@@ -186,9 +194,12 @@ GEM
       rake (>= 12.2)
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
+    rainbow (3.1.1)
     rake (13.1.0)
     rdoc (6.6.0)
       psych (>= 4.0.0)
+    redis-client (0.18.0)
+      connection_pool
     regexp_parser (2.8.2)
     reline (0.4.0)
       io-console (~> 0.5)
@@ -208,6 +219,20 @@ GEM
       rodauth-model (~> 0.2)
       sequel-activerecord_connection (~> 1.1)
       tilt
+    rubocop (1.57.2)
+      json (~> 2.3)
+      language_server-protocol (>= 3.17.0)
+      parallel (~> 1.10)
+      parser (>= 3.2.2.4)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.28.1, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 3.0)
+    rubocop-ast (1.30.0)
+      parser (>= 3.2.1.0)
+    ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.15.0)
@@ -220,6 +245,11 @@ GEM
       activerecord (>= 4.2, < 8)
       after_commit_everywhere (~> 1.1)
       sequel (~> 5.38)
+    sidekiq (7.2.0)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.14.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -227,7 +257,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.6.8-x86_64-darwin)
     stimulus-rails (1.3.0)
       railties (>= 6.0.0)
     stringio (3.0.9)
@@ -240,6 +269,7 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    unicode-display_width (2.5.0)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -262,12 +292,14 @@ DEPENDENCIES
   cssbundling-rails
   debug
   importmap-rails
+  pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.2)
   rodauth-rails (~> 1.12)
+  rubocop
   selenium-webdriver
+  sidekiq
   sprockets-rails
-  sqlite3 (~> 1.4)
   stimulus-rails
   turbo-rails
   tzinfo-data
