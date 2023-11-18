@@ -13,7 +13,7 @@ services:
     ports:
       - '5432:5432'
     networks:
-      - osanpo_net
+      - opt_planner_network
   pgadmin:
     image: dpage/pgadmin4
     environment:
@@ -24,7 +24,7 @@ services:
     volumes:
       - 'pgadmin_data:/var/lib/pgadmin'
     networks:
-      - osanpo_net
+      - opt_planner_network
   redis:
     image: redis:latest
     restart: always
@@ -34,7 +34,7 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - osanpo_net
+      - opt_planner_network
 
   redis-commander:
     container_name: redis-commander
@@ -46,7 +46,7 @@ services:
     ports:
       - "38081:8081"
     networks:
-      - osanpo_net
+      - opt_planner_network
 
 networks:
   opt_planner_network:
@@ -59,7 +59,3 @@ volumes:
     driver: local
   pgadmin_data:
     driver: local
-# zookeeper_data:
-#   driver: local
-# kafka_data:
-#   driver: local
