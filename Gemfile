@@ -37,6 +37,16 @@ gem 'cssbundling-rails'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'rubocop', require: false
 gem 'sidekiq'
+gem 'activerecord-postgis-adapter'
+gem 'activerecord-session_store'
+
+gem 'font-awesome-sass'
+gem 'i18n'
+gem 'config'
+gem 'draper'
+gem 'kaminari'
+gem 'ransack'
+
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
 group :development, :test do

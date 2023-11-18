@@ -13,11 +13,19 @@
 # gem "pg"
 #
 default: &default
-  adapter: postgresql
+  adapter: postgis
   encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  postgis_extension: postgis
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  schema_search_path: public
+  postgis_schema: public # default is public
+  min_messages: notice
+  username: <%= ENV.fetch('PGSQL_USERNAME'){'opt_planner_development'} %>
+  password: <%= ENV.fetch('PGSQL_PASSWORD'){'opt_planner_development'} %>
+  host: <%= ENV.fetch('PGSQL_HOST'){ '127.0.0.1' } %>
+  port: <%= ENV.fetch('PGSQL_PORT'){ 5432 }.to_i %>
+  su_username: <%= ENV.fetch('PGSQL_ROOT_USERNAME'){'opt_planner_development'} %> # a superuser for the database
+  su_password: <%= ENV.fetch('PGSQL_ROOT_PASSWORD'){'opt_planner_development'} %> # the superuser's password
 
 development:
   <<: *default
