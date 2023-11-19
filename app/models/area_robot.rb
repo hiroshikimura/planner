@@ -1,0 +1,2 @@
+class AreaRobot < ApplicationRecord
+end
