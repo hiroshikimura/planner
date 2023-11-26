@@ -1,4 +1,23 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# == Schema Information
+#
+# Table name: area_robots
+#
+#  id         :bigint           not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  area_id    :bigint           not null
+#  robot_id   :bigint           not null
+#
+# Indexes
+#
+#  index_area_robots_on_area_id   (area_id)
+#  index_area_robots_on_robot_id  (robot_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (area_id => areas.id)
+#  fk_rails_...  (robot_id => robots.id)
+#
 
 # This model initially had no columns defined. If you add columns to the
 # model remove the "{}" from the fixture names and add the columns immediately

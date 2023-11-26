@@ -14,7 +14,7 @@ class CalcDistanceService
     SELECT
       n1.id AS points_id,
       n2.id AS point_id,
-      0.0 AS distance
+      st_distance_sphere() AS distance
     FROM nodes AS n1
     INNER JOIN nodes AS n2
     ON n2.id = :point_id AND n1.id IN (:point_ids)
