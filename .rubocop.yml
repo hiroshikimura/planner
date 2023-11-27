@@ -10,3 +10,5 @@ Metrics/MethodLength:
   Max: 40
 Metrics/AbcSize:
   Max: 40
+Style/FrozenStringLiteralComment:
+  Enabled: false

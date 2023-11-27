@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PlanningService
   attr_reader :params
 
@@ -5,6 +7,5 @@ class PlanningService
     @params = params
   end
 
-  def call
-  end
+  def call; end
 end

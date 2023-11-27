@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SetupService
   attr_reader :params, :plan
 
@@ -7,6 +9,10 @@ class SetupService
   end
 
   def call
+    register_nodes
+    register_robot
+    register_area
+    register_line
   end
 
   private
@@ -55,7 +61,7 @@ class SetupService
       plan.nodes.create(
         node_id: e[:id],
         position: "POINT(#{e[:coordinates][:latitude]} #{e[:coordinates][:longitude]})",
-        time_required: e[:time_required],
+        time_required: e[:time_required]
       )
     end
   end
@@ -65,7 +71,7 @@ class SetupService
       plan.robots.create(
         robot_id: e[:id],
         position: "POINT(#{e[:coordinates][:latitude]} #{e[:coordinates][:longitude]})",
-        start_time: e[:start_time],
+        start_time: e[:start_time]
       )
     end
   end
@@ -75,7 +81,7 @@ class SetupService
       plan.areas.create(
         area_id: e[:id],
         position: "POINT(#{e[:coordinates][:latitude]} #{e[:coordinates][:longitude]})",
-        radius: e[:radius],
+        radius: e[:radius]
       )
     end
   end
@@ -85,9 +91,14 @@ class SetupService
     while (n = list.shift).present? && list.present?
       CalcDistanceService.new(n, list).each do |e|
         plan.lines.create(
-          from: e[:from],
-          to: e[:to],
-          distance: e[:distance],
+          from_node_id: n.id,
+          to_node_id: e[:to],
+          distance: e[:distance][:from] # このままだとmeterなので、これを時間に変換する必要がある
+        )
+        plan.lines.create(
+          from_node_id: e[:to],
+          to_node_id: n.id,
+          distance: e[:distance][:to] # このままだとmeterなので、これを時間に変換する必要がある
         )
       end
     end
