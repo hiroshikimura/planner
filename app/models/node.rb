@@ -19,4 +19,7 @@
 #  fk_rails_...  (plan_id => plans.id)
 #
 class Node < ApplicationRecord
+  belongs_to :plan
+  has_many :from_lines, class_name: 'Line', foreign_key: 'from_node_id', dependent: :destroy
+  has_many :to_lines, class_name: 'Line', foreign_key: 'to_node_id', dependent: :destroy
 end

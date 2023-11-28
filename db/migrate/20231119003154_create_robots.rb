@@ -4,6 +4,7 @@ class CreateRobots < ActiveRecord::Migration[7.1]
       t.datetime :start_time, null: false
       t.string :robot_id, null: false
       t.geometry :position, null: false, index: true
+      t.references :plan, null: false, foreign_key: true
 
       t.timestamps
     end

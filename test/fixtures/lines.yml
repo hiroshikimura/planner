@@ -3,7 +3,7 @@
 # Table name: lines
 #
 #  id           :bigint           not null, primary key
-#  distance     :integer          not null
+#  distance     :float            not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  from_node_id :integer          not null

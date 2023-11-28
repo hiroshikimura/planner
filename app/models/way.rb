@@ -24,4 +24,7 @@
 #  fk_rails_...  (robot_id => robots.id)
 #
 class Way < ApplicationRecord
+  belongs_to :node
+  belongs_to :plan
+  belongs_to :robot
 end

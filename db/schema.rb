@@ -56,15 +56,18 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_19_004740) do
 
   create_table "areas", force: :cascade do |t|
     t.bigint "plan_id", null: false
+    t.string "area_id", null: false
+    t.geometry "position", limit: {:srid=>0, :type=>"geometry"}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["plan_id"], name: "index_areas_on_plan_id"
+    t.index ["position"], name: "index_areas_on_position"
   end
 
   create_table "lines", force: :cascade do |t|
     t.integer "from_node_id", null: false
     t.integer "to_node_id", null: false
-    t.integer "distance", null: false
+    t.float "distance", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["from_node_id"], name: "index_lines_on_from_node_id"
@@ -93,8 +96,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_19_004740) do
     t.datetime "start_time", null: false
     t.string "robot_id", null: false
     t.geometry "position", limit: {:srid=>0, :type=>"geometry"}, null: false
+    t.bigint "plan_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["plan_id"], name: "index_robots_on_plan_id"
     t.index ["position"], name: "index_robots_on_position"
   end
 
@@ -119,6 +124,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_19_004740) do
   add_foreign_key "area_robots", "robots"
   add_foreign_key "areas", "plans"
   add_foreign_key "nodes", "plans"
+  add_foreign_key "robots", "plans"
   add_foreign_key "ways", "nodes"
   add_foreign_key "ways", "plans"
   add_foreign_key "ways", "robots"

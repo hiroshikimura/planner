@@ -10,4 +10,9 @@
 #  plan_id       :string           not null
 #
 class Plan < ApplicationRecord
+  has_many :areas, dependent: :destroy
+  has_many :nodes, dependent: :destroy
+  has_many :robots, dependent: :destroy
+  has_many :ways, dependent: :destroy
+  has_many :lines, dependent: :destroy
 end
