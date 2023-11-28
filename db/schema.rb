@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_19_004740) do
     t.bigint "plan_id", null: false
     t.string "area_id", null: false
     t.geometry "position", limit: {:srid=>0, :type=>"geometry"}, null: false
+    t.float "radius", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["plan_id"], name: "index_areas_on_plan_id"

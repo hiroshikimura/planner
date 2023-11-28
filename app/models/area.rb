@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  position   :geometry         not null, geometry, 0
+#  radius     :float            not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  area_id    :string           not null
