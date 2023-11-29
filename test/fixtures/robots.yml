@@ -3,6 +3,7 @@
 # Table name: robots
 #
 #  id         :bigint           not null, primary key
+#  end_time   :datetime         not null
 #  position   :geometry         not null, geometry, 0
 #  start_time :datetime         not null
 #  created_at :datetime         not null

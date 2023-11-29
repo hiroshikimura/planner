@@ -19,4 +19,6 @@
 #  fk_rails_...  (robot_id => robots.id)
 #
 class AreaRobot < ApplicationRecord
+  belongs_to :area
+  belongs_to :robot
 end

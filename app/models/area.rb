@@ -20,4 +20,6 @@
 #  fk_rails_...  (plan_id => plans.id)
 #
 class Area < ApplicationRecord
+  has_many :area_robots, dependent: :destroy
+  has_many :robots, through: :area_robots
 end

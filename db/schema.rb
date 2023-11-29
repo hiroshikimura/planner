@@ -95,6 +95,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_19_004740) do
 
   create_table "robots", force: :cascade do |t|
     t.datetime "start_time", null: false
+    t.datetime "end_time", null: false
     t.string "robot_id", null: false
     t.geometry "position", limit: {:srid=>0, :type=>"geometry"}, null: false
     t.bigint "plan_id", null: false

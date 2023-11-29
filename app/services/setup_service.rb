@@ -93,12 +93,12 @@ class SetupService
         plan.lines.create(
           from_node_id: n.id,
           to_node_id: e[:to],
-          distance: e[:distance][:from] # このままだとmeterなので、これを時間に変換する必要がある
+          distance: e[:distance][:from] # このままだとmeterなので、これを時間に変換する必要があるかも。ただし、計画時には時間になる
         )
         plan.lines.create(
           from_node_id: e[:to],
           to_node_id: n.id,
-          distance: e[:distance][:to] # このままだとmeterなので、これを時間に変換する必要がある
+          distance: e[:distance][:to] # このままだとmeterなので、これを時間に変換する必要があるかも。ただし、計画時には時間になる
         )
       end
     end

@@ -15,4 +15,6 @@ class Plan < ApplicationRecord
   has_many :robots, dependent: :destroy
   has_many :ways, dependent: :destroy
   has_many :lines, dependent: :destroy
+
+  scope :with_all, -> { includes(:areas, :robots, :lines).joins(:areas, :robots, :lines) }
 end
