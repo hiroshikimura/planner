@@ -28,20 +28,19 @@ class Robot < ApplicationRecord
   has_many :area_robots, dependent: :destroy
   has_many :areas, through: :area_robots
 
-  scope :with_nodes, -> do
+  scope :with_nodes, lambda {
     includes(:ways)
       .joins(:ways)
       .merge(Way.includes(:node).joins(:node))
-  end
+  }
 
-  scope :activated, ->(current_time) do
-    where(sanitize_sql_array([':target_time between start_time and end_time', {target_time: current_time}]))
-  end
+  scope :activated, lambda { |current_time|
+    where(sanitize_sql_array([':target_time between start_time and end_time', { target_time: current_time }]))
+  }
 
   def latest_point
     ways
-      .sort_by { |way| way.arrival_at + way.node.time_required }
-      .last
+      .max_by { |way| way.arrival_at + way.node.time_required }
   end
 
   def latest_location

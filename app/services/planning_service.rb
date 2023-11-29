@@ -3,7 +3,7 @@
 class PlanningService
   attr_reader :plan
 
-  def initialize(params)
+  def initialize(_params)
     @plan = Plan.with_all.find_by(job_id: @params[:id])
   end
 
@@ -49,8 +49,7 @@ class PlanningService
       .robots
       .activated(current_time)
       .where.not(id: completed_robots.pluck(:id))
-      .sort_by { |robot| robot.latest_leave_at }
-      .first
+      .min_by(&:latest_leave_at)
   end
 
   def speed
@@ -66,10 +65,10 @@ class PlanningService
 
   def near_by(robot, nodes)
     n = Node
-      .select('*, ST_Distance(position, :position) AS distance', robot.latest_location)
-      .where(id: nodes.select(:id))
-      .order(distance: :asc)
-      .first
+        .select('*, ST_Distance(position, :position) AS distance', robot.latest_location)
+        .where(id: nodes.select(:id))
+        .order(distance: :asc)
+        .first
     nodes.find_by(id: n.id)
   end
 

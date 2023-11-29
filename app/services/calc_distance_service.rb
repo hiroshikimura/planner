@@ -1,5 +1,4 @@
 class CalcDistanceService
-
   def self.calculate_distance(point, points)
     # pointとpointsそれぞれの距離を算出する
     # この方法は簡易な方法であり、道路やその状況を考慮していない

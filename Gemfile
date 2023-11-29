@@ -35,20 +35,20 @@ gem 'cssbundling-rails'
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'rubocop', require: false
-gem 'sidekiq'
 gem 'activerecord-postgis-adapter'
 gem 'activerecord-session_store'
+gem 'rubocop', require: false
+gem 'sidekiq'
 
-gem 'font-awesome-sass'
-gem 'i18n'
 gem 'config'
 gem 'draper'
+gem 'font-awesome-sass'
+gem 'i18n'
 gem 'kaminari'
 gem 'ransack'
 
-gem 'tzinfo-data', platforms: %i[windows jruby]
 gem 'annotate'
+gem 'tzinfo-data', platforms: %i[windows jruby]
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
