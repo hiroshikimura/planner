@@ -14,7 +14,7 @@
 #  index_lines_on_from_node_id  (from_node_id)
 #  index_lines_on_to_node_id    (to_node_id)
 #
-require "test_helper"
+require 'test_helper'
 
 class LineTest < ActiveSupport::TestCase
   # test "the truth" do

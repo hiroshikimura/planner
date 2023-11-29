@@ -18,7 +18,7 @@
 #  fk_rails_...  (area_id => areas.id)
 #  fk_rails_...  (robot_id => robots.id)
 #
-require "test_helper"
+require 'test_helper'
 
 class AreaRobotTest < ActiveSupport::TestCase
   # test "the truth" do

@@ -9,7 +9,7 @@
 #  updated_at    :datetime         not null
 #  plan_id       :string           not null
 #
-require "test_helper"
+require 'test_helper'
 
 class PlanTest < ActiveSupport::TestCase
   # test "the truth" do

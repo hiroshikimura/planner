@@ -23,7 +23,7 @@
 #  fk_rails_...  (plan_id => plans.id)
 #  fk_rails_...  (robot_id => robots.id)
 #
-require "test_helper"
+require 'test_helper'
 
 class WayTest < ActiveSupport::TestCase
   # test "the truth" do
