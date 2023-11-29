@@ -15,8 +15,7 @@ class PlanningService
       node = near_by(target_robot, find_of(target_robot))
       if node.present?
         # 経路作成
-        # @TODO: 最初のnodesまでの距離を別途算出する必要がある
-        travel_time = 0
+        travel_time = distance(robot, node) / speed
         plan.ways.create(
           arrival_at: current_time + travel_time,
           leave_at: current_time + travel_time + node.time_required,
@@ -32,11 +31,17 @@ class PlanningService
   end
 
   def possible_robot_exists?(completed_robots)
+    # 移動可能なロボットが存在するか
     plan.robots.reject { |r| completed_robots.pluck(:id).include?(r.id) }.present?
   end
 
   def node_exists?
+    # 移動可能なノードが存在するか
     plan.nodes.reject { |n| plan.ways.pluck(:node_id).include?(n.id) }.present?
+  end
+
+  def distance(robot, node)
+    CalcDistanceService.calculate_distance(robot.latest_point&.node || robot, [node])
   end
 
   def next_robot(completed_robots)

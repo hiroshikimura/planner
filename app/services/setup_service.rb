@@ -89,7 +89,7 @@ class SetupService
   def register_line
     list = plan.nodes.to_a
     while (n = list.shift).present? && list.present?
-      CalcDistanceService.new(n, list).each do |e|
+      CalcDistanceService.calculate_distance(n, list).each do |e|
         plan.lines.create(
           from_node_id: n.id,
           to_node_id: e[:to],
