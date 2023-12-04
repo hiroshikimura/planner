@@ -17,4 +17,10 @@ class Plan < ApplicationRecord
   has_many :lines, dependent: :destroy
 
   scope :with_all, -> { includes(:areas, :robots, :lines).joins(:areas, :robots, :lines) }
+
+  def self.new_job(planning_infomation)
+    new_plan = nil
+    while !(new_plan = new(job_id: SecureRandom.uuid.to_s, planning_info: planning_information.to_json)).save ; end
+    new_plan
+  end
 end

@@ -39,8 +39,7 @@ class Robot < ApplicationRecord
   }
 
   def latest_point
-    ways
-      .max_by { |way| way.arrival_at + way.node.time_required }
+    ways.max_by { |way| way.arrival_at + way.node.time_required }
   end
 
   def latest_location
@@ -48,8 +47,6 @@ class Robot < ApplicationRecord
   end
 
   def latest_leave_at
-    latest_point.then do |w|
-      w.present? ? w.arrival_at + w.node.time_required : start_time
-    end
+    latest_point.then { |w| w.present? ? w.arrival_at + w.node.time_required : start_time }
   end
 end
