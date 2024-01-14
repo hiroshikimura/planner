@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# 一番最初に「移動可能なロボット」を検索して、すべてのノードを網羅する
-class PlanningService
+# 一番最初に「近場のノードで作業を完了するロボット」を検索して、すべてのノードを網羅する
+class PlanningMinWorkingService
   attr_reader :plan
 
   def initialize(_params)
@@ -11,23 +11,9 @@ class PlanningService
   def call
     completed_robots = []
 
-    while possible_robot_exists?(completed_robots) && node_exists?
-      target_robot = next_robot(completed_robots)
-      node = near_by(target_robot, find_of(target_robot))
-      if node.present?
-        # 経路作成
-        travel_time = distance(robot, node) / speed
-        plan.ways.create(
-          arrival_at: current_time + travel_time,
-          leave_at: current_time + travel_time + node.time_required,
-
-          node: n,
-          robot: target_robot
-        )
-      else
-        # このrobotはもう動けない
-        completed_robots << target_robot
-      end
+    while node_exists? && (target_robot_with_node = find_next_robot)
+      # 見つかった
+      plan.ways.create(target_robot_with_node)
     end
   end
 
@@ -45,6 +31,28 @@ class PlanningService
     CalcDistanceService.calculate_distance(robot.latest_point&.node || robot, [node])
   end
 
+  def find_next_robot
+    plan.robots
+      .select { |r| r.latest_leave_at <= r.end_time }
+      .map { |r| robot_next_move_to(r) }
+      .min_by { |e| e[:leave_at] }
+  end
+
+  def robot_next_move_to(robot)
+    next_node = near_by(r, find_of(r))
+    arrival_at = robot.latest_leave_at + moving_time(robot, node)
+    {
+      robot: robot,
+      node: next_node,
+      arrival_at: arrival_at,
+      leave_at: arrival_at + next_node.time_required.second
+    }
+  end
+
+  def moving_time(robot, node)
+    distance(robot, node) / speed(robot, node)
+  end
+
   def next_robot(completed_robots)
     plan
       .robots
@@ -53,7 +61,7 @@ class PlanningService
       .min_by(&:latest_leave_at)
   end
 
-  def speed
+  def speed(_robot, _node)
     # m/sec
     5.0 * 1000 / (1 * 60 * 60.0) * 0.8
   end
